@@ -1,9 +1,5 @@
 # Learn more about services, parameters and containers at
 # http://symfony.com/doc/current/book/service_container.html
-parameters:
-    core.twitter.consumer_key: MsNEvj6oDHIRE20HXMpjE0VBO
-    core.twitter.consumer_secret: ZvBmK42imrdosKCRQdxQDl8d4IRaIw8h6BHzM2TFJnGDpmN0Nz
-
 services:
     core.twitter:
         class: SymfoTweet\CoreBundle\Service\Twitter
