@@ -1,0 +1,39 @@
+<div class="row">
+  <div class="col-lg-8 col-lg-offset-2">
+    <div class="panel panel-primary">
+      <div class="panel-heading">Mon profil</div>
+      <div class="panel-body">
+        <div class="row">
+          <div class="col-lg-5 text-center">
+            {% if user.getTwitterId %}
+              <p>
+                <img alt="profile image" src="{{twitter_info.profile_image_url}}" class="img-rounded"/>
+                <a href="https://twitter.com/{{twitter_info.screen_name}}">@{{twitter_info.screen_name}}</a>
+              </p>
+              <ul class="list-group">
+                <li class="list-group-item">
+                  <span class="badge">{{twitter_info.followers_count}}</span>
+                  Followers
+                </li>
+                <li class="list-group-item">
+                  <span class="badge">{{twitter_info.friends_count}}</span>
+                  Followings
+                </li>
+              </ul>
+            {% else %}
+              <a href="/connect/twitter" class="btn btn-success">Lier mon compte twitter</a>
+            {% endif %}
+          </div>
+          <div class="col-lg-6">
+            <p>{{ 'profile.show.username'|trans({}, 'FOSUserBundle') }}: {{ user.username }}</p>
+            <p>{{ 'profile.show.email'|trans({}, 'FOSUserBundle') }}: {{ user.email }}</p>
+            <hr>
+            {% if user.getTwitterId %}
+              <a href="{{path('wall_index')}}">Gestion des walls</a>
+            {% endif %}
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

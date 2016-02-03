@@ -1,0 +1,36 @@
+{% if u is defined %}
+  {{ form_start(form, {'method': 'post', 'action': path('wall_index',{'u':u,'update':u}), 'attr': {'class':'form-horizontal'} }) }}
+{% else %}
+  {{ form_start(form, {'method': 'post', 'action': path('wall_index'), 'attr': {'class':'form-horizontal'} }) }}
+{% endif %}
+
+  <div class="form-group">
+    {{ form_label(form.params.type, 'Type', {'label_attr': {'class': 'col-sm-3 control-label'} }) }}
+    <div class="col-sm-9">
+      {{ form_widget(form.params.type, {'attr': {'class': 'form-control'} }) }}
+    </div>
+  </div>
+
+  <p>{{ form_errors(form.params.type) }}</p>
+
+  <div class="form-group">
+    {{ form_label(form.params.text, 'Contexte', {'label_attr': {'class': 'col-sm-3 control-label'} }) }}
+    <div class="col-sm-9">
+      {{ form_widget(form.params.text, {'attr': {'class': 'form-control'}}) }}
+    </div>
+  </div>
+
+  <p>{{ form_errors(form.params.text) }}</p>
+
+  <div class="form-group">
+    <div class="col-sm-offset-3 col-sm-9">
+      <div class="checkbox">
+        <label>
+          {{ form_widget(form.active_admin) }} Administrable
+        </label>
+      </div>
+    </div>
+  </div>
+
+  <button type="submit" class="btn btn-success btn-block">Envoyer</button>
+{{ form_end(form) }}

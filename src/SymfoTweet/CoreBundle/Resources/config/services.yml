@@ -1,0 +1,4 @@
+services:
+#    symfo_tweet_core.example:
+#        class: SymfoTweet\CoreBundle\Example
+#        arguments: ["@service_id", "plain_value", %parameter%]

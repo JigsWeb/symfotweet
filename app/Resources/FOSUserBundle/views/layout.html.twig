@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="UTF-8" />
+        <link rel="stylesheet" href="{{ asset('bootstrap/css/bootstrap.min.css') }}" />
+        <title>SymfoTweet</title>
+    </head>
+    <body style="padding-top:20px">
+
+      <div class="row">
+        <div class="col-lg-6 col-lg-offset-3">
+          <nav class="navbar navbar-default">
+            <div class="container-fluid">
+              <div class="navbar-header">
+                <a class="navbar-brand" href="#">SymfoTweet</a>
+              </div>
+              <div id="navbar" class="navbar-collapse collapse">
+                <ul class="nav navbar-nav">
+                  {% if is_granted("IS_AUTHENTICATED_REMEMBERED") %}
+                      <li><a href="{{ path('fos_user_profile_show') }}">Profil de {{ app.user.username}}</a></li>
+                      <li><a href="{{ path('fos_user_security_logout') }}">Déconnexion</a></li>
+                  {% else %}
+                      <li><a href="{{ path('fos_user_registration_register') }}">Inscription</a></li>
+                      <li><a href="{{ path('fos_user_security_login') }}">Connexion</a></li>
+                  {% endif %}
+                </ul>
+                {% if is_granted("ROLE_ADMIN") %}
+                  <ul class="nav navbar-nav navbar-right">
+                    <li class="dropdown open">
+                      <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="true">Administatrion <span class="caret"></span></a>
+                      <ul class="dropdown-menu">
+                        <li><a href="{{path('admin_wall')}}">Gestion des walls</a></li>
+                        <li><a href="{{path('admin_user')}}">Gestion des utilisateurs</a></li>
+                      </ul>
+                    </li>
+                  </ul>
+                {% endif %}
+              </div><!--/.nav-collapse -->
+            </div>
+          </nav>
+        </div>
+      </div>
+
+      <div class="row">
+        <div class="col-lg-6 col-lg-offset-3">
+          {% if app.request.hasPreviousSession %}
+            {% for type, messages in app.session.flashbag.all() %}
+              {% for message in messages %}
+              <div class="alert alert-{{ type }}">
+                {{ message }}
+              </div>
+              {% endfor %}
+            {% endfor %}
+          {% endif %}
+
+          {% block fos_user_content %}
+          {% endblock fos_user_content %}
+
+          {% block content %}
+          {% endblock content %}
+        </div>
+      </div>
+      <script src="{{asset('jquery/jquery-2.1.4.min.js')}}"></script>
+      <script src="{{asset('bootstrap/js/bootstrap.min.js')}}"></script>
+      <script src="{{asset('js/wall/main.js')}}"></script>
+    </body>
+</html>

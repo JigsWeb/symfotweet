@@ -1,0 +1,18 @@
+{% for tweet in tweets %}
+  <div class="panel panel-default tweet" data-id="{{tweet.id_str}}">
+    <div class="pannel-body" style="padding: 10px">
+      <div class="row">
+        <div class="col-lg-4">
+          <p>
+            <img src="{{tweet.user.profile_image_url}}" class="img-rounded"/>
+            <a href="https://twitter.com/{{tweet.user.screen_name}}">@{{tweet.user.screen_name}}</a>
+          </p>
+        </div>
+        <div class="col-lg-8">
+          <p>{{tweet.text}}</p>
+        </div>
+      </div>
+    </div>
+  </div>
+  <hr>
+{% endfor %}

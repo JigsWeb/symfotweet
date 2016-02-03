@@ -1,3 +1,58 @@
+symfo_tweet_client_wall:
+    resource: "@SymfoTweetClientBundle/Controller/WallController.php"
+    type:     annotation
+
+symfo_tweet_core:
+    resource: "@SymfoTweetCoreBundle/Controller/"
+    type:     annotation
+    prefix:   /
+
+symfo_tweet_client:
+    resource: "@SymfoTweetClientBundle/Controller/"
+    type:     annotation
+    prefix:   /
+
+symfo_tweet_admin:
+    resource: "@SymfoTweetAdminBundle/Controller/"
+    type:     annotation
+    prefix:   /
+
 app:
     resource: "@AppBundle/Controller/"
     type:     annotation
+
+fos_user_security:
+    resource: "@FOSUserBundle/Resources/config/routing/security.xml"
+
+fos_user_profile:
+    resource: "@FOSUserBundle/Resources/config/routing/profile.xml"
+    prefix: /profile
+
+fos_user_register:
+    resource: "@FOSUserBundle/Resources/config/routing/registration.xml"
+    prefix: /register
+
+fos_user_resetting:
+    resource: "@FOSUserBundle/Resources/config/routing/resetting.xml"
+    prefix: /resetting
+
+fos_user_change_password:
+    resource: "@FOSUserBundle/Resources/config/routing/change_password.xml"
+    prefix: /profile
+
+# HWIOAuthBundle
+hwi_oauth_security:
+    resource: "@HWIOAuthBundle/Resources/config/routing/login.xml"
+    prefix: /connect
+
+hwi_oauth_redirect:
+    resource: "@HWIOAuthBundle/Resources/config/routing/redirect.xml"
+    prefix:   /connect
+
+# We override this part of the routing
+hwi_oauth_connect:
+     resource: "@HWIOAuthBundle/Resources/config/routing/connect.xml"
+     prefix: /connect
+
+twitter_login:
+    path: /connect/check-twitter

@@ -1,0 +1,26 @@
+<div class="col-lg-6 col-lg-offset-3 panel panel-default">
+  <div class="panel-body">
+    {{ form_start(form, {'method': 'post', 'action': path('test')}) }}
+      <div class="form-group">
+        {{ form_label(form.active_admin) }}
+        {{ form_widget(form.active_admin,{'attr': {'class': 'form-control'}}) }}
+      </div>
+
+      <p>{{ form_errors(form.active_admin) }}</p>
+
+      <div class="form-group">
+        {{ form_label(form.params.type, "Type") }}
+        {{ form_widget(form.params.type, {'attr': {'class': 'form-control'}}) }}
+      </div>
+
+      <p>{{ form_errors(form.params.type) }}</p>
+
+      <div class="form-group">
+        {{ form_label(form.params.text) }}
+        {{ form_widget(form.params.text, {'attr': {'class': 'form-control'}}) }}
+      </div>
+
+      <button type="submit" class="btn btn-default btn-lg btn-block">Envoyer</button>
+    {{ form_end(form) }}
+  </div>
+</div>
