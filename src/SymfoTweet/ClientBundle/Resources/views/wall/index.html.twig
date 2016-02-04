@@ -47,7 +47,7 @@
             <td class="text-center">Non</td>
           {% endif %}
           <td class="text-center"><a href="{{ path('wall_index',{'u':wall.id}) }}" class="btn btn-warning">Editer</a></td>
-          <td class="text-center"><a href="" class="btn btn-danger">Supprimer</a></td>
+          <td class="text-center"><a href="{{ path('wall_index',{'remove':wall.id})}}" class="btn btn-danger">Supprimer</a></td>
         </tr>
       {% endfor %}
     </table>

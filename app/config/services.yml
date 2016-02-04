@@ -3,4 +3,4 @@
 services:
     core.twitter:
         class: SymfoTweet\CoreBundle\Service\Twitter
-        arguments: ['%core.twitter.consumer_key%','%core.twitter.consumer_secret%']
+        arguments: ['%core.twitter.consumer_key%','%core.twitter.consumer_secret%',@doctrine.orm.entity_manager]

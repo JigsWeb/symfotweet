@@ -32,6 +32,11 @@ class WallController extends Controller
 
         $WallRepository = $em->getRepository('SymfoTweetCoreBundle:Wall');
 
+        if($request->query->get('remove',false)){
+          $wallRemove = $WallRepository->find($request->query->get('remove'));
+          $em->remove($wallRemove);
+          $em->flush();
+        }
 
         $wall = new Wall;
         $form = $this->createForm(WallType::class);
@@ -50,8 +55,8 @@ class WallController extends Controller
           'form' => $form
         );
 
-        if(isset($_GET['u'])){
-          $wallUpdate = $WallRepository->find($_GET['u']);
+        if($request->query->get('u',false)){
+          $wallUpdate = $WallRepository->find($request->query->get('u'));
 
           $formUpdate = $this->createForm(WallType::class, $wallUpdate);
           $formUpdate->handleRequest($request);
@@ -87,15 +92,10 @@ class WallController extends Controller
     public function showContentAction(Wall $wall, Request $request){
       $TwitterService = $this->get('core.twitter');
 
-      if(isset($_POST['last_tweet_id'])){
-        $last_tweet_id = $_POST['last_tweet_id'];
-        $count = 4;
-      }
-      else{
-        $count = 10;
-        $last_tweet_id = false;
-      }
+      $last_tweet_id = $request->request->get('last_tweet_id');
+      $count = $request->request->get('count');
 
+      if($request->request->get('first')) $count++;
 
       if($request->isXmlHttpRequest()){
 
@@ -138,5 +138,15 @@ class WallController extends Controller
             'wall' => $wall,
             'twitter_info' => $twitter_info
         ));
+    }
+
+    /**
+     * Finds and displays a Wall entity.
+     *
+     * @Route("/{id}/moderate", name="wall_moderate")
+     * @Method("GET")
+     */
+    public function moderateAction(Wall $wall){
+
     }
 }

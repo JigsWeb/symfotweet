@@ -74,22 +74,3 @@ fos_user:
     db_driver: orm
     firewall_name: main
     user_class: SymfoTweet\CoreBundle\Entity\User
-
-hwi_oauth:
-    http_client:
-       verify_peer: false
-    fosub:
-        # try 30 times to check if a username is available (foo, foo1, foo2 etc)
-        username_iterations: 30
-        properties:
-            twitter: twitter_id
-    connect:
-        confirmation: true
-        registration_form: fos_user.registration.form
-        
-    firewall_name: secured_area
-    resource_owners:
-        twitter:
-            type:                twitter
-            client_id:           MsNEvj6oDHIRE20HXMpjE0VBO
-            client_secret:       ZvBmK42imrdosKCRQdxQDl8d4IRaIw8h6BHzM2TFJnGDpmN0Nz

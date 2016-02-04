@@ -11,18 +11,26 @@ class ProfileController extends BaseController
 {
   public function showAction()
   {
+      $request = Request::createFromGlobals();
+      $TwitterService = $this->container->get('core.twitter');
+
       $user = $this->container->get('security.context')->getToken()->getUser();
-      if (!is_object($user)) {
-          throw new AccessDeniedException('This user does not have access to this section.');
+
+      if($request->query->get('oauth_verifier',false)){
+        $em = $this->container->get('doctrine')->getEntityManager();
+        $TwitterService->checkAction($request->query->get('oauth_verifier'),$user,$em);
       }
 
-      $TwitterService = $this->container->get('core.twitter');
-      $twitter_info = $TwitterService->getUser($user);
+      $render_params = array('user' => $user);
 
-      return $this->container->get('templating')->renderResponse('FOSUserBundle:Profile:show.html.'.$this->container->getParameter('fos_user.template.engine'), array(
-        'user' => $user,
-        'twitter_info' => $twitter_info
-      ));
+      if(empty($user->getTwitterId())){
+        $render_params['url'] = $TwitterService->linkAccount();
+      }
+      else{
+        $render_params['twitter_info'] = $TwitterService->getUser($user);
+      }
+
+      return $this->container->get('templating')->renderResponse('FOSUserBundle:Profile:show.html.'.$this->container->getParameter('fos_user.template.engine'),$render_params);
 
   }
 }

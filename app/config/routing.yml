@@ -39,20 +39,3 @@ fos_user_resetting:
 fos_user_change_password:
     resource: "@FOSUserBundle/Resources/config/routing/change_password.xml"
     prefix: /profile
-
-# HWIOAuthBundle
-hwi_oauth_security:
-    resource: "@HWIOAuthBundle/Resources/config/routing/login.xml"
-    prefix: /connect
-
-hwi_oauth_redirect:
-    resource: "@HWIOAuthBundle/Resources/config/routing/redirect.xml"
-    prefix:   /connect
-
-# We override this part of the routing
-hwi_oauth_connect:
-     resource: "@HWIOAuthBundle/Resources/config/routing/connect.xml"
-     prefix: /connect
-
-twitter_login:
-    path: /connect/check-twitter
