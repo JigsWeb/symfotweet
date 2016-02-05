@@ -10,5 +10,5 @@ parameters:
     mailer_user: null
     mailer_password: null
     secret: 996a1c40f7a48ffc8a404fb250c8ae26ae86a821
-    core.twitter.consumer_key: MsNEvj6oDHIRE20HXMpjE0VBO
-    core.twitter.consumer_secret: ZvBmK42imrdosKCRQdxQDl8d4IRaIw8h6BHzM2TFJnGDpmN0Nz
+    core.twitter.consumer_key: 38UJiAsFaNSb4bhBY6rFDXQNQ
+    core.twitter.consumer_secret: LBJbn7nbYEOZSRFYXMyfanj2srcbtZxXn6U1CYAU8YMJVX0Vt9

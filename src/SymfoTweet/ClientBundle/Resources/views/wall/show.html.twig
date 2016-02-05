@@ -2,15 +2,33 @@
 
 {% block content %}
     <div class="col-lg-4">
-      <div class="panel-primary">
-        <div class="panel-heading">Créateur du wall</div>
-        <div class="panel-body">
-          
+      <div class="row">
+        <div class="panel panel-primary">
+          <div class="panel-heading">Créateur du wall</div>
+          <div class="panel-body">
+            <p>
+              <img alt="profile image" src="{{twitter_info.profile_image_url}}" class="img-rounded"/>
+              <a href="https://twitter.com/{{twitter_info.screen_name}}">@{{twitter_info.screen_name}}</a>
+            </p>
+            <ul class="list-group">
+              <li class="list-group-item">
+                <span class="badge">{{twitter_info.followers_count}}</span>
+                Followers
+              </li>
+              <li class="list-group-item">
+                <span class="badge">{{twitter_info.friends_count}}</span>
+                Followings
+              </li>
+            </ul>
+          </div>
         </div>
+      </div>
+      <div class="row" id="warning">
+        <span class="glyphicon glyphicon-warning-sign" aria-hidden="true"></span> Twitter: Reconnexion en cours..
       </div>
     </div>
     <div class="col-lg-8" id="tweets">
-
+      {{render(controller('SymfoTweetClientBundle:Wall:showContent',{'id':wall.id}))}}
     </div>
 {% endblock %}
 

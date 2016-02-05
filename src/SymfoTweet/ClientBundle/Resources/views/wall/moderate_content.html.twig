@@ -1,0 +1,27 @@
+{% for tweet in tweets %}
+  <div class="panel panel-default tweet" data-id="{{tweet.id_str}}">
+    <div class="panel-body" style="padding: 10px">
+      <div class="row">
+        <div class="col-lg-1" class="text-center">
+          {% if tweet.id_str in tweets_moderate %}
+            <span class="glyphicon glyphicon-minus active" aria-hidden="true" data-active="1"></span>
+          {% else %}
+            <span class="glyphicon glyphicon-plus active" aria-hidden="true" class="active" data-active="0"></span>
+          {% endif %}
+        </div>
+        <div class="col-lg-11">
+          <div class="col-lg-12">
+            <p>
+              <img src="{{tweet.user.profile_image_url}}" class="img-rounded"/>
+              <a href="https://twitter.com/{{tweet.user.screen_name}}">@{{tweet.user.screen_name}}</a>
+            </p>
+          </div>
+          <div class="col-lg-12">
+            <p>{{tweet.text}}</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <hr>
+{% endfor %}

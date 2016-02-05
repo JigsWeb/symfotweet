@@ -20,7 +20,7 @@ class Twitter {
     return $this->_connection->get("account/verify_credentials");
   }
 
-  public function getTweets($user,$wall_params,$count,$last_tweet_id){
+  public function getTweets($user,$wall_params,$count,$last_tweet_id,$since_tweet_id=false){
     $this->_connection->setOauthToken($user->getAccessToken(),$user->getAccessTokenSecret());
 
     $request_params = array(
@@ -29,11 +29,23 @@ class Twitter {
       'count' => $count
     );
 
-    if($last_tweet_id){
-      $request_params['max_id'] = $last_tweet_id;
-    }
+    if($last_tweet_id) $request_params['max_id'] = $last_tweet_id;
+    if($since_tweet_id) $request_params['since_id'] = $since_tweet_id;
 
     return $this->_connection->get("search/tweets",$request_params);
+  }
+
+  public function getTweetsById($user,$ids_array){
+    $this->_connection->setOauthToken($user->getAccessToken(),$user->getAccessTokenSecret());
+
+    $ids_string = "";
+
+    foreach ($ids_array as $key => $id) {
+      $ids_string .= $id;
+
+      if(isset($ids_array[$key+1])) $ids_string .= ",";
+    }
+    return $this->_connection->get("statuses/lookup",array('id'=>$ids_string));
   }
 
   public function linkAccount(){
@@ -62,4 +74,5 @@ class Twitter {
     $em->persist($user);
     $em->flush();
   }
+
 }
