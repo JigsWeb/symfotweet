@@ -22,6 +22,7 @@ class WallModerateRepository extends EntityRepository
     $query = $this->createQueryBuilder('wm')
       ->where('wm.wall = :wall_id')
       ->setParameter('wall_id',$wall->getId())
+      ->orderBy('wm.id','DESC')
       ->getQuery();
 
     foreach($query->getResult() as $tweet){

@@ -27,7 +27,7 @@
         <span class="glyphicon glyphicon-warning-sign" aria-hidden="true"></span> Twitter: Reconnexion en cours..
       </div>
     </div>
-    <div class="col-lg-8" id="tweets">
+    <div class="col-lg-8" id="tweets" data-moderate="{{moderate}}">
       {{render(controller('SymfoTweetClientBundle:Wall:showContent',{'id':wall.id}))}}
     </div>
 {% endblock %}

@@ -33,12 +33,13 @@ $(function(){
   var getTweet = function(){
     $.post(window.location.pathname+"/next", params, function(data){
       console.log(data);
-      if(data.html.length){
+      if(data.html){
         $('#warning').hide();
         $("#tweets").append(data.html);
 
         params.last_tweet_id = $('.tweet').last().data('id');
         if(params.first) params.first = false;
+        moderateEvent();
       }
       else{
         $("#warning").show();
@@ -57,14 +58,16 @@ $(function(){
   }
 
   var recentTweet = function(){
-    setInterval(function(){
-      $.post(window.location.pathname+"/next",paramsRecent,function(data){
-        if(data.html.length){
-          $("#tweets").prepend(data.html);
-          paramsRecent.since_tweet_id = $('.tweet').first().data('id');
-        }
-      });
-    }, 3000);
+    $.post(window.location.pathname+"/next",paramsRecent,function(data){
+      if(data.html){
+        $("#tweets").prepend(data.html);
+        paramsRecent.since_tweet_id = $('.tweet').first().data('id');
+        moderateEvent();
+      }
+      setTimeout(function(){
+        recentTweet();
+      },2000);
+    });
   }
 
   var scrollPermission = true;
@@ -72,19 +75,19 @@ $(function(){
   var oldTweet = function(){
     params.count = 2;
     $(window).scroll(function(){
-      if($(document).height()==$(window).scrollTop()+$(window).height()){
+      if($(document).height()==$(window).scrollTop()+$(window).height() && scrollPermission){
         scrollPermission = false;
         $.post(window.location.pathname+"/next", params, function(data){
-          if(data.html.length){
+          if(data.html){
             $("#tweets").append(data.html);
-            params.last_tweet_id = data.last_tweet_id;
+            params.last_tweet_id = $('.tweet').last().data('id');
+            moderateEvent();
           }
           scrollPermission = true;
         });
       }
     });
   };
-
   $('#warning').hide();
   moderateEvent();
   getTweet();

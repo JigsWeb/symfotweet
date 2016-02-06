@@ -121,7 +121,7 @@ class WallController extends Controller
           $tweets = $TwitterService->getTweets($this->getUser(),$wall->getParams(),$count,$last_tweet_id);
 
           return $this->render('SymfoTweetClientBundle:wall:show_content.html.twig', array(
-            'tweets' => $tweets->statuses
+            'tweets' => $tweets->statuses,
           ));
         }
       }
@@ -158,11 +158,14 @@ class WallController extends Controller
     {
         $twitter = $this->get('core.twitter');
         $twitter_info = $twitter->getUser($wall->getUser());
-
-        return $this->render('SymfoTweetClientBundle:wall:show.html.twig', array(
+        $render_params = array(
             'wall' => $wall,
             'twitter_info' => $twitter_info
-        ));
+        );
+
+        $render_params['moderate'] = $wall->getActiveAdmin() ? 1 : 0;
+
+        return $this->render('SymfoTweetClientBundle:wall:show.html.twig',$render_params);
     }
 
     /**
@@ -186,13 +189,13 @@ class WallController extends Controller
 
       if($request->isXmlHttpRequest()){
 
-        $tweets = $TwitterService->getTweets($this->getUser(),$wall->getParams(),$count,$last_tweet_id);
+        $tweets = $TwitterService->getTweets($this->getUser(),$wall->getParams(),$count,$last_tweet_id,$since_tweet_id);
 
         if(!isset($tweets->statuses) || empty($tweets->statuses)){
           return new Response(json_encode($tweets->statuses), 200, array('Content-Type'=>'application/json'));
         }
         else{
-          if($last_tweet_id || $since_tweet_id) array_shift($tweets->statuses);
+          if($last_tweet_id) array_shift($tweets->statuses);
 
           $lReturn = array();
           //use renderview instead of render, because renderview returns the rendered template
