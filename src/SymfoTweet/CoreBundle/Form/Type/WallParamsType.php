@@ -21,6 +21,7 @@ class WallParamsType extends AbstractType
                       "Mot-clé" => ""
                     ),
                     'choices_as_values' => true,
+                    'required' => false,
                   ))
             ->add('text', TextType::class, array(
               'label' => 'Contexte'

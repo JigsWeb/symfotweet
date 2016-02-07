@@ -92,8 +92,8 @@
       {% else %}
         <td>Non</td>
       {% endif %}
-      <td><a href="{{path('admin_user',{'p': page,'id': u.id,'action':'read'})}}"><button class="btn btn-success">Modifier</button></a></td>
-      <td><a href="{{path('admin_user',{'p': page,'id': u.id,'action':'delete'})}}"><button class="btn btn-danger">Supprimer</button></a></td>
+      <td><a class="btn btn-success" href="{{path('admin_user',{'p': page,'id': u.id,'action':'read'})}}">Modifier</a></td>
+      <td><a class="btn btn-danger" href="{{path('admin_user',{'p': page,'id': u.id,'action':'delete'})}}">Supprimer</a></td>
     </tr>
     {% endfor %}
   </table>

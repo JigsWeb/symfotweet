@@ -3,10 +3,10 @@ $(function(){
   var scrollPermission = true;
   var refreshPermission = true;
 
-  var params = {
+  params = {
     count: 1,
-    last_tweet_id: $('.tweet').last().data('id'),
-    first: true
+    first: true,
+    last_tweet_id: $('.tweet').last().data('id')
   }
 
   var getCount = function(cb){
@@ -21,7 +21,7 @@ $(function(){
 
   var refreshTweets = function(count){
     params.count = count;
-    params.last_tweet_id = false;
+    delete params.last_tweet_id;
 
     setInterval(function(){
       $.post(window.location.pathname+"/next", params, function(data){
@@ -64,11 +64,14 @@ $(function(){
             getTweet();
           }
           else{
-            // var count = $('.tweet').length;
-            // if($('body').height() > $(window).height()) $(".tweet").last().remove();
-            // refreshTweets(count);
+            if($('body').height() > $(window).height()){
+              $(".tweet").last().fadeOut();
+              $(".tweet").last().remove();
+            }
+            var count = $('.tweet').length;
+            refreshTweets(count);
           }
-        },3000);
+        },2000);
       });
     }
   }

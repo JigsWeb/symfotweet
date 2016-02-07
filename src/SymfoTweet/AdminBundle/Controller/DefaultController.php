@@ -29,7 +29,11 @@ class DefaultController extends Controller
         $em = $this->getDoctrine()->getManager();
         $WallRepository = $em->getRepository('SymfoTweetCoreBundle:Wall');
 
-        $walls = $WallRepository->findAll();
+        if($request->query->get('remove',false)){
+          $wallRemove = $WallRepository->find($request->query->get('remove'));
+          $em->remove($wallRemove);
+          $em->flush();
+        }
 
         $wall = new Wall;
         $form = $this->createForm(WallType::class, $wall);
@@ -42,6 +46,8 @@ class DefaultController extends Controller
           $em->persist($data);
           $em->flush();
         }
+
+        $walls = $WallRepository->findAll();
 
         $render_params = array(
           'walls' => $walls,

@@ -102,8 +102,9 @@ class WallController extends Controller
         if($request->isXmlHttpRequest()){
 
           $tweets = $TwitterService->getTweets($this->getUser(),$wall->getParams(),$count,$last_tweet_id);
+
           if(!isset($tweets->statuses) || empty($tweets->statuses)){
-            return new Response(json_encode($tweets->statuses), 200, array('Content-Type'=>'application/json'));
+            return new JsonResponse(false);
           }
           else{
             if($last_tweet_id) array_shift($tweets->statuses);
